@@ -6,7 +6,10 @@ module.exports = {
   debug: true,
   devtool: 'inline-source-map',
   context: __dirname,
-  entry: './src/main',
+  entry: [
+    'webpack-hot-middleware/client?reload=true',
+    './src/main'
+  ],
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
@@ -22,8 +25,8 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('bundle.css'),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ],
   module: {
     preLoaders: [
@@ -44,6 +47,16 @@ module.exports = {
                 "style-loader",
                 "css-loader",
                 "sass-loader")
+      },
+      { test: /\.css$/,
+        loader: ExtractTextPlugin.extract(
+                "style-loader",
+                "css-loader",
+                "sass-loader")
+      },
+      {
+        test: /\.woff$/,
+        loader: 'url'
       }
     ]
   }
