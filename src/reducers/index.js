@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import initReducer from './initReducer';
+import postsReducer from './postsReducer';
 
 const rootReducer = combineReducers({
-  initReducer: initReducer,
+  query: initReducer,
+  posts: postsReducer,
   routing: routerReducer,
 });
 
